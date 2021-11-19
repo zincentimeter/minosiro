@@ -1,0 +1,15 @@
+# virtualenv
+.virtualenv/
+
+# test use
+.playground/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# config data (except default one)
+*.yaml
+
+# pycache
+__pycache__/

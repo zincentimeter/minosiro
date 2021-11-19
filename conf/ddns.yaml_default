@@ -1,0 +1,12 @@
+# TODO: make a easy script/wizard to generate data required below.
+
+gateway:
+  address: '192.168.1.1'
+  username: 'useradmin'
+  password: '_____'
+
+cloudflare:
+  api_key: '________________________________________'
+
+dns_record_name:
+  - '________._____.___'

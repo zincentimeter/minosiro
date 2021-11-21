@@ -101,15 +101,17 @@ def update_dns_records(cloudflare_instance : CloudFlare,
 
 def create_dns_records(cloudflare_instance : CloudFlare,
                         new_ip : str,
-                        dns_record_name : str):
+                        dns_record_name : str,
+                        ttl : int = 120,
+                        proxied : bool = False):
     zone_id = get_zone_id(cloudflare_instance, dns_record_name)
     pending_record_type = get_record_type(new_ip)
     dns_record = {
         'name':dns_record_name,
         'type':pending_record_type,
         'content':new_ip,
-        'ttl':120,
-        'proxied':False
+        'ttl':ttl,
+        'proxied':proxied
     }
     try:
         dns_record = cloudflare_instance.zones.dns_records.post(zone_id, data=dns_record)

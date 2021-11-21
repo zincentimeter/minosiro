@@ -1,0 +1,12 @@
+proxy:
+  http: 'http://_________:____'
+  https: 'http://_________:____'
+
+directory:
+  rabbit_hole: '_:\________'
+  structure:
+    temp: '.temp'
+    cache: '.cache'
+    uncategorized_data: '.uncategorized_data'
+    raw_data: 'raw_data'
+    structured_info: 'structured_info'

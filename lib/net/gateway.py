@@ -3,6 +3,7 @@ import warnings
 
 # self-defined helper functions
 from lib.net import ip as ipAddr
+from lib.util.exception import MetaException
 
 # Enum for assertion handling choices
 from enum import Enum
@@ -10,20 +11,10 @@ class AssertType(Enum):
     soft = 0
     hard = 1
 
-
 class Gateway():
     
-    class GatewayError(Exception):
-        
-        def __init__(self, gateway_instance):
-            self.error_instance = gateway_instance
-            self.message = 'This is an uncategorized error.'
-        
-        def __init__(self, message : str):
-            self.message = message
-
-        def __str__(self):
-            return self.message
+    class GatewayError(MetaException):
+        pass
 
     def __init__(self, address : str, username : str, password : str):
         self.__init_var__(address, username, password)

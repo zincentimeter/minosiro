@@ -1,0 +1,13 @@
+secret:
+    # Think of the API key as the user name that represents your App when making API requests. It helps us verify who you are.
+    api_key: '_________________________'
+    # Your API Key Secret is like a password and helps verify your API Key. This will be one of the last times you'll see it displayed, so remember to save it in a safe place.
+    api_key_secret: '__________________________________________________'
+    # An Access Token used in authentication that allows you to pull specific data.
+    bearer_token: '________________________________________________________________________________________________________________'
+
+    # Generated November 21, 2021
+    # For @_____________
+    # Created with Read, Write, and Direct Messages permissions
+    access_token: '__________________________________________________'
+    access_token_secret: '_____________________________________________'

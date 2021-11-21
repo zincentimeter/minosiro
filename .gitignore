@@ -10,6 +10,7 @@
 
 # config data (except default one)
 *.yaml
+!*.default.yaml
 
 # pycache
 __pycache__/

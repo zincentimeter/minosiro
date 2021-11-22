@@ -1,9 +1,11 @@
+from __future__ import annotations
 import hashlib
 import json
 
 from pathlib import Path
 from typing import IO
 
+import lib.net.stream as stream
 import lib.util.exception as exception
 
 class FileError(exception.MetaException):
@@ -131,3 +133,22 @@ class File(BaseFile):
         temp_dict[field_name] = structure_info_dict
         return self.structure_info.append_dict(temp_dict)
 
+
+    @staticmethod
+    def create_by_downloading(url : str, local_directory : Path,
+                 proxy_conf : dict[str,str] = None,
+                 structure_info_dict : dict = None) -> File:
+        download_success, location, sha1 = stream.download(url,
+                                                           local_directory,
+                                                           proxy_conf)
+        if (not download_success):
+            raise FileError('Failed to download.')
+                
+        file_instance = File(sha1=sha1, location=location)
+        
+        if (structure_info_dict == None):
+            structure_info_dict = dict()
+        structure_info_dict['file'] = file_instance.get_info_dict()
+        file_instance.append_structure_info(
+            structure_info_dict=structure_info_dict)
+        return file_instance

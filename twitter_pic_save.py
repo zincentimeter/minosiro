@@ -1,7 +1,6 @@
 from lib.net import twitter, stream
 from lib.util import yaml
-from lib.file import path
-
+from lib.file import path, file
 
 if (__name__ == '__main__'):
     minosiro_conf = yaml.yaml_to_dict(yaml_path='conf/minosiro.yaml')
@@ -23,7 +22,9 @@ if (__name__ == '__main__'):
         
         for media_file in tweet.extended_entities['media']:
             file_url = media_file['media_url_https']
-            stream.download(file_url, 
-                        path.get_type_path('raw_data',
-                                           **minosiro_conf['directory']),
-                        proxy_conf=minosiro_conf['proxy'])
+            file_instance = file.File.create_by_downloading(
+                url=file_url,
+                local_directory=path.get_type_path(
+                    file_type='raw_data',
+                    **minosiro_conf['directory']),
+                proxy_conf=minosiro_conf['proxy'])

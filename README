@@ -2,7 +2,40 @@ Minosiro is a collection of resources.
 
 1. Overview
 
-Minoshiro integrates the three steps of archiving:
-- Saving data in various format.
+Minoshiro integrates three steps of archiving:
+- Saving data in various formats.
 - Maintaining the storage to speed up access.
 - Handy web interface for lookups.
+
+2. Structure of The Source Code
+
+===================================================================
+Directory Tree  :  Description of directories
+===================================================================
+minosiro        :  Main directory of minosiro's source code.
+|
+|- lib          :  The library that supports minosiro.
+|  |
+|  |- file      :  Basic components of file and structure info in
+|  |               minosiro, also with path generator utility.
+|  |
+|  |- net       :  Network ops for local gateway, domain host; Also
+|  |               some general ops like download; For apps, it now
+|  |               integrates with Twitter's API.
+|  |
+|  |- util      :  Model for exception, regex utility, yaml utility
+|                  and the parser rule handler.
+|
+|- conf         :  Required configs for minosiro.
+|  |
+|  |- ddns[.default].yaml
+|  |            :  Config for ddns, include all of gateway, cloud-
+|  |               flare and target.
+|  |
+|  |- minosiro[.default].yaml
+|  |            :  Config for minosiro, include proxy to overcome
+|  |               censorship and structure of local directories
+|  |
+|  |- twitter[.default].yaml
+                :  Keys & secrets to get contents on Twitter.
+===================================================================

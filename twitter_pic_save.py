@@ -4,8 +4,8 @@ from lib.file import path
 
 
 if (__name__ == '__main__'):
-    minosiro_conf = yaml.yaml_to_dict('conf/minosiro.yaml')
-    twi_conf = yaml.yaml_to_dict('conf/twitter.yaml')
+    minosiro_conf = yaml.yaml_to_dict(yaml_path='conf/minosiro.yaml')
+    twi_conf = yaml.yaml_to_dict(yaml_path='conf/twitter.yaml')
     
     twi_instance = twitter.API_ver_1.get_api_instance(
         proxy=minosiro_conf['proxy']['https'], **twi_conf)

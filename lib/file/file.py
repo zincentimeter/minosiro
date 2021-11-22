@@ -109,3 +109,25 @@ class StructureInfo(BaseFile):
         temp_dict.update(structure_info_dict)
         return self.write_dict(temp_dict)
 
+class File(BaseFile):
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.structure_info = StructureInfo(file_instance=self, **kwargs)
+
+    def get_info_dict(self) -> dict:
+        file_info_dict = dict()
+        file_info_dict['sha1'] = self.sha1
+        file_info_dict['path'] = self.location.__str__()
+        return file_info_dict
+        
+    def write_structure_info(self, structure_info_dict : dict = None) -> bool:
+        return self.structure_info.write_dict(structure_info_dict)
+
+    def append_structure_info(self, field_name : str = None,
+                              structure_info_dict : dict = None) -> bool:
+        if field_name == None:
+            return self.structure_info.append_dict(structure_info_dict)
+        temp_dict = dict()
+        temp_dict[field_name] = structure_info_dict
+        return self.structure_info.append_dict(temp_dict)
+

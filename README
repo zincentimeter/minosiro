@@ -9,21 +9,29 @@ Minoshiro integrates three steps of archiving:
 
 2. Structure of The Source Code
 
-# 2.1. Main directory of minosiro's source code.
-minosiro/
-# 2.2. The library that supports minosiro.
-minosiro/lib/
-# Basic components of file and structure info in minosiro, also with path generator utility.
-minosiro/lib/file/
-# Network ops for local gateway, domain host; Also some general ops like download; For apps, it now integrates with Twitter's API.
-minosiro/lib/net/
-# Model for exception, regex utility, yaml utility and the parser rule handler.
-minosiro/lib/util/
-# 2.3. Required configs for minosiro.
-minosiro/conf/
-# Config for ddns, include all of gateway, cloudflare and target.
-minosiro/conf/ddns[.default].yaml 
-# Config for minosiro, include proxy to overcome censorship and structure of local directories.
-minosiro/conf/minosiro[.default].yaml
-# Keys & secrets to get contents on Twitter.
-minosiro/conf/twitter[.default].yaml
+>  minosiro/
+Main directory of minosiro's source code.
+
+>  minosiro/lib/
+The library that supports minosiro.
+
+>  minosiro/lib/file/
+Basic components of file and structure info in minosiro, also with path generator utility.
+
+>  minosiro/lib/net/
+Network ops for local gateway, domain host; Also some general ops like download; For apps, it now integrates with Twitter's API.
+
+>  minosiro/lib/util/
+Model for exception, regex utility, yaml utility and the parser rule handler.
+
+>  minosiro/conf/
+Required configs for minosiro.
+
+>  minosiro/conf/ddns[.default].yaml 
+Config for ddns, include all of gateway, cloudflare and target.
+
+>  minosiro/conf/minosiro[.default].yaml
+Config for minosiro, include proxy to overcome censorship and structure of local directories.
+
+>  minosiro/conf/twitter[.default].yaml
+Keys & secrets to get contents on Twitter.

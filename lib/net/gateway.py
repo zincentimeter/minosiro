@@ -2,8 +2,8 @@ import requests
 import warnings
 
 # self-defined helper functions
-from lib.net import ip as ipAddr
-from lib.util.exception import MetaException
+import lib.net.ip as ipAddr
+import lib.util.exception as exception
 
 # Enum for assertion handling choices
 from enum import Enum
@@ -13,7 +13,7 @@ class AssertType(Enum):
 
 class Gateway():
     
-    class GatewayError(MetaException):
+    class GatewayError(exception.MetaException):
         pass
 
     def __init__(self, address : str, username : str, password : str):

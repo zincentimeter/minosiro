@@ -1,8 +1,9 @@
 import tweepy
 
-from lib.util.exception import MetaException
+import lib.util.exception as exception
+import lib.util.yaml as yaml
 
-class TwitterError(MetaException): 
+class TwitterError(exception.MetaException): 
     pass
 
 class API_ver_1():

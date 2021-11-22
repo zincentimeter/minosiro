@@ -28,3 +28,7 @@ if (__name__ == '__main__'):
                     file_type='raw_data',
                     **minosiro_conf['directory']),
                 proxy_conf=minosiro_conf['proxy'])
+            twi_info_dict = twitter.API_ver_1.get_media_info_dict(
+                tweet, media_file)
+            file_instance.append_structure_info(
+                field_name='source', structure_info_dict=twi_info_dict)

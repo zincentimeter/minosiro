@@ -41,12 +41,12 @@ class Location():
         return Path(self.__path__()).exists()
 
 class BaseFile():
-    def __init__(self, sha1 : str, location : Location = None,
+    def __init__(self, sha256 : str, location : Location = None,
                  **kwargs) -> None:
         self.location = Location(
             dir_abs=location.dir_abs,
             file_name=location.file_name.file_name)
-        self.sha1 = sha1
+        self.sha256 = sha256
         pass
 
 class StructureInfo(BaseFile):
@@ -55,7 +55,7 @@ class StructureInfo(BaseFile):
     encoding = 'utf8'
     
     @staticmethod
-    def json_bin_to_json(structure_info_json_bin : bytes = None) -> str:
+    def json_bin_to_json(structure_info_json_bin : bytes = None) -> dict:
         if structure_info_json_bin == None:
             return StructureInfo.empty_json
         structure_info_json = structure_info_json_bin.decode(StructureInfo.encoding)
@@ -90,7 +90,7 @@ class StructureInfo(BaseFile):
             file_name=file_location.file_name.file_stem + StructureInfo.suffix)
 
     def write(self, structure_info_content : bytes) -> bool:
-        self.sha1 = hashlib.sha1(structure_info_content)
+        self.sha256 = hashlib.sha256(structure_info_content)
         with self.location.open(mode='wb') as file_handle:
             file_handle.write(structure_info_content)
         return True
@@ -123,7 +123,7 @@ class File(BaseFile):
 
     def get_info_dict(self) -> dict:
         file_info_dict = dict()
-        file_info_dict['sha1'] = self.sha1
+        file_info_dict['sha256'] = self.sha256
         file_info_dict['path'] = self.location.__str__()
         return file_info_dict
         
@@ -143,13 +143,13 @@ class File(BaseFile):
     def create_by_downloading(url : str, local_directory : Path,
                  proxy_conf : dict[str,str] = None,
                  structure_info_dict : dict = None) -> File:
-        download_success, location, sha1 = stream.download(url,
+        download_success, location, sha256 = stream.download(url,
                                                            local_directory,
                                                            proxy_conf)
         if (not download_success):
             raise FileError('Failed to download.')
                 
-        file_instance = File(sha1=sha1, location=location)
+        file_instance = File(sha256=sha256, location=location)
         
         if (structure_info_dict == None):
             structure_info_dict = dict()

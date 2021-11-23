@@ -10,10 +10,10 @@ def download(url : str, local_directory : Path,
 
     download_request = requests.get(url=url, proxies=proxy_conf)
     
-    sha1 = hashlib.sha1(download_request.content).hexdigest()
-    file_name = f'{sha1[4:]}{Path(urlparse(url).path).suffix}'
+    sha256 = hashlib.sha256(download_request.content).hexdigest()
+    file_name = f'{sha256[4:]}{Path(urlparse(url).path).suffix}'
     
-    dir_abs = Path(local_directory, sha1[0:2], sha1[2:4])
+    dir_abs = Path(local_directory, sha256[0:2], sha256[2:4])
     dir_abs.mkdir(parents=True, exist_ok=True)
     
     file_abs = file.Location(dir_abs, file_name)
@@ -22,4 +22,4 @@ def download(url : str, local_directory : Path,
     
     print(f'DOWNLOADED: {Path(dir_abs, file_name)} .')
     
-    return True, file_abs, sha1
+    return True, file_abs, sha256

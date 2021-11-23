@@ -37,6 +37,9 @@ class Location():
     def open(self, mode : str = 'wb') -> IO:
         return Path(self.__path__()).open(mode=mode)
 
+    def exists(self) -> bool:
+        return Path(self.__path__()).exists()
+
 class BaseFile():
     def __init__(self, sha1 : str, location : Location = None,
                  **kwargs) -> None:
@@ -97,6 +100,8 @@ class StructureInfo(BaseFile):
         self.write(structure_info_content)
     
     def read_dict(self) -> dict:
+        if (not self.location.exists()):
+            return dict()
         with self.location.open(mode='rb') as file_handle:
             read_dict_content = file_handle.read()
         return StructureInfo.json_bin_to_json(read_dict_content)

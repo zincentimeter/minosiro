@@ -143,17 +143,21 @@ class File(BaseFile):
     def create_by_downloading(url : str, local_directory : Path,
                  proxy_conf : dict[str,str] = None,
                  structure_info_dict : dict = None) -> File:
-        download_success, location, sha256 = stream.download(url,
-                                                           local_directory,
-                                                           proxy_conf)
-        if (not download_success):
-            raise FileError('Failed to download.')
-                
-        file_instance = File(sha256=sha256, location=location)
         
+        dl_success, location, sha256, content_type, download_unix_timestamp = \
+            stream.download(url, local_directory, proxy_conf)
+        if (not dl_success):
+            raise FileError('Failed to download.')
+
+        file_instance = File(sha256=sha256, location=location)
+
         if (structure_info_dict == None):
             structure_info_dict = dict()
+
         structure_info_dict['file'] = file_instance.get_info_dict()
+        structure_info_dict['file'].update(content_type=content_type)
+        structure_info_dict['file'].update(download_time=download_unix_timestamp)
+        
         file_instance.append_structure_info(
             structure_info_dict=structure_info_dict)
         return file_instance

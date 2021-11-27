@@ -1,9 +1,9 @@
 import tweepy
 
-import lib.util.exception as exception
-import lib.util.yaml as yaml
+from lib.util.exception import MetaException
+from lib.util.yaml import yaml_to_dict, parse_info_dict
 
-class TwitterError(exception.MetaException): 
+class TwitterError(MetaException): 
     pass
 
 class API_ver_1():
@@ -29,8 +29,8 @@ class API_ver_1():
             - media_url_https
         '''
         media_info_dict = dict()
-        media_info_layout = yaml.yaml_to_dict(yaml_string=layout_doc)
-        return yaml.parse_info_dict(
+        media_info_layout = yaml_to_dict(yaml_string=layout_doc)
+        return parse_info_dict(
             tweet=tweet.__getstate__().get('_json'), 
             media_file=media_file, 
             info_layout=media_info_layout)

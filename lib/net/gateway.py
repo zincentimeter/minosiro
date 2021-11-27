@@ -2,8 +2,8 @@ import requests
 import warnings
 
 # self-defined helper functions
-import lib.net.ip as ipAddr
-import lib.util.exception as exception
+from lib.net.ip import is_valid
+from lib.util.exception import MetaException
 
 # Enum for assertion handling choices
 from enum import Enum
@@ -13,7 +13,7 @@ class AssertType(Enum):
 
 class Gateway():
     
-    class GatewayError(exception.MetaException):
+    class GatewayError(MetaException):
         pass
 
     def __init__(self, address : str, username : str, password : str):
@@ -55,7 +55,7 @@ class Gateway():
                 self.__login()
 
     def __assert_valid_ip(self, ip : str, assert_type : AssertType):
-        if (not ipAddr.is_valid(ip)):
+        if (not is_valid(ip)):
             msg = 'The IP address is not valid.'
             if (assert_type == AssertType.hard):
                 raise Gateway.GatewayError(msg)

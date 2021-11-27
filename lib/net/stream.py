@@ -6,11 +6,11 @@ import hashlib
 import dateutil.parser
 import calendar
 
-import lib.file.file as file
+from lib.file.path import Location
 
 def download(url : str, local_directory : Path,
              proxy_conf : dict[str,str] = None) -> tuple[
-                 bool, file.Location, str, str, str]:
+                 bool, Location, str, str, str]:
 
     download_request = requests.get(url=url, proxies=proxy_conf)
     sha256 = hashlib.sha256(download_request.content).hexdigest()
@@ -19,7 +19,7 @@ def download(url : str, local_directory : Path,
     dir_abs = Path(local_directory, sha256[0:2], sha256[2:4])
     dir_abs.mkdir(parents=True, exist_ok=True)
     
-    file_abs = file.Location(dir_abs, file_name)
+    file_abs = Location(dir_abs, file_name)
     with file_abs.open(mode='wb') as file_handle:
         file_handle.write(download_request.content)
     

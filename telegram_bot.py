@@ -70,15 +70,6 @@ def handler_config(dispatcher : Dispatcher):
         CommandHandler(command='start',callback=Command.start)
     )
     dispatcher.add_handler(
-        CommandHandler(command='help',callback=Command.help)
-    )
-    dispatcher.add_handler(
-        MessageHandler(
-            filters=Filters.text & ~Filters.command,
-            callback=Command.echo
-        )
-    )
-    dispatcher.add_handler(
         MessageHandler(
             filters=Filters.attachment,
             callback=Command.attachment_download

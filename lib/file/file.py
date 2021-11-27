@@ -110,6 +110,34 @@ class File(BaseFile):
         temp_dict[field_name] = structure_info_dict
         return self.structure_info.append_dict(temp_dict)
 
+    @staticmethod
+    def create_from_bytes(byte_content : bytes,
+                          suffix_with_dot : str,
+                          local_directory : Path,
+                          structure_info_dict : dict = None) -> File:
+        
+        sha256 = hashlib.sha256(byte_content).hexdigest()
+        file_name = f'{sha256[4:]}{suffix_with_dot}'
+        dir_abs = Path(local_directory, sha256[0:2], sha256[2:4])
+        dir_abs.mkdir(parents=True, exist_ok=True)
+    
+        file_abs = Location(dir_abs, file_name)
+        with file_abs.open(mode='wb') as file_handle:
+            file_handle.write(byte_content)
+
+        location = file_abs
+        file_instance = File(sha256=sha256, location=location)
+        unix_timestamp = str(int(time.time()))
+        
+        content_type = mimetypes.types_map.get(suffix_with_dot, None)
+        if (structure_info_dict == None):
+            structure_info_dict = dict()
+        structure_info_dict['file'] = file_instance.get_info_dict()
+        structure_info_dict['file'].update(content_type=content_type)
+        structure_info_dict['file'].update(archived_time=unix_timestamp)
+        file_instance.append_structure_info(
+            structure_info_dict=structure_info_dict)
+        return file_instance
 
     @staticmethod
     def create_by_downloading(url : str, local_directory : Path,
